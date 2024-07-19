@@ -1,4 +1,8 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: #fff;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
 }
