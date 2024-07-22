@@ -49,7 +49,7 @@ function GeneratePpt({token, params}: { token: string, params: any }) {
             }
         }
         source.onend = function (data: any) {
-            if (data.data.startsWith('{') && data.data.endWith('}')) {
+            if (data.data.startsWith('{') && data.data.endsWith('}')) {
                 const json = JSON.parse(data.data)
                 if (json.code != 0) {
                     alert('生成PPT异常：' + json.message)

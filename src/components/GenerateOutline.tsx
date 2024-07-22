@@ -47,7 +47,7 @@ function GenerateOutline({token, nextStep}: { token: string, nextStep: (outline:
             setOutlineHtml(outlineHtml)
         }
         source.onend = function (data: any) {
-            if (data.data.startsWith('{') && data.data.endWith('}')) {
+            if (data.data.startsWith('{') && data.data.endsWith('}')) {
                 const json = JSON.parse(data.data)
                 if (json.code != 0) {
                     alert('生成大纲异常：' + json.message)
