@@ -119,7 +119,7 @@ function GeneratePpt({token, params}: { token: string, params: any }) {
     }, [])
 
     const downloadPptx = useCallback((id: string) => {
-        const url = 'https://chatmee.cn/api/ppt/downloadPptx'
+        const url = 'https://docmee.cn/api/ppt/downloadPptx'
         const xhr = new XMLHttpRequest()
         xhr.open('POST', url, true)
         xhr.setRequestHeader('token', token)
@@ -143,7 +143,7 @@ function GeneratePpt({token, params}: { token: string, params: any }) {
     const loadById = useCallback((id: string) => {
         setGening(false)
         setPptxId(id)
-        const url = 'https://chatmee.cn/api/ppt/loadPptx?id=' + id
+        const url = 'https://docmee.cn/api/ppt/loadPptx?id=' + id
         const xhr = new XMLHttpRequest()
         xhr.open('GET', url, true)
         xhr.setRequestHeader('token', token)

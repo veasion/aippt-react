@@ -8,7 +8,7 @@ export default function SelectTemplate({token, nextStep}: { token: string, nextS
     const [templates, setTemplates] = useState([] as any)
 
     const loadTemplates = useCallback(async () => {
-        const url = 'https://chatmee.cn/api/ppt/randomTemplates'
+        const url = 'https://docmee.cn/api/ppt/randomTemplates'
         const resp = await (await fetch(url, {
             method: 'POST',
             headers: {

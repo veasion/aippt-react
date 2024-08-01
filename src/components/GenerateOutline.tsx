@@ -25,7 +25,7 @@ function GenerateOutline({token, nextStep}: { token: string, nextStep: (outline:
             return
         }
         console.log('主题', subject)
-        const url = 'https://chatmee.cn/api/ppt/generateOutline'
+        const url = 'https://docmee.cn/api/ppt/generateOutline'
         const source = new SSE(url, {
             method: 'POST',
             // withCredentials: true,
