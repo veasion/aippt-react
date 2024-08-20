@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
+import OutlineEdit from './OutlineEdit.tsx'
 import { marked } from 'marked'
 import { SSE } from '../utils/sse.js'
 import '../styles/GenerateOutline.css'
 
 let subject = ''
 let outline = ''
+let outlineTree = null as any
 
 marked.setOptions({
     renderer: new marked.Renderer(),
@@ -28,7 +30,6 @@ function GenerateOutline({token, nextStep}: { token: string, nextStep: (outline:
         const url = 'https://docmee.cn/api/ppt/generateOutline'
         const source = new SSE(url, {
             method: 'POST',
-            // withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
                 'Cache-Control': 'no-cache',
@@ -41,6 +42,9 @@ function GenerateOutline({token, nextStep}: { token: string, nextStep: (outline:
             if (json.status == -1) {
                 alert('生成大纲异常：' + json.error)
                 return
+            }
+            if (json.status == 4 && json.result) {
+                outlineTree = json.result
             }
             outline = outline + json.text
             const outlineHtml = marked.parse(outline.replace('```markdown', '').replace(/```/g, '')) as string
@@ -84,7 +88,8 @@ function GenerateOutline({token, nextStep}: { token: string, nextStep: (outline:
                 <button onClick={generateOutline}>生成大纲</button>
                 { genDone && <button onClick={() => nextStep(outline) }>下一步：选择模板</button> }
             </div>
-            <div className="outline" dangerouslySetInnerHTML={{__html: outlineHtml}}></div>
+            {genDone && <div className="outline_edit"><OutlineEdit outlineTree={outlineTree} update={(_outline) => { outline = _outline }} /></div>}
+            {!genDone && <div className="outline" dangerouslySetInnerHTML={{__html: outlineHtml}}></div>}
         </div>
       </>
     )

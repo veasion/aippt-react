@@ -15,3 +15,7 @@
   text-align: left;
   margin: 0 calc(20vw);
 }
+.outline_edit {
+  width: 40rem;
+  margin: 1rem auto;
+}
