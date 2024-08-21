@@ -7,7 +7,7 @@ import { Ppt2Canvas } from '../utils/ppt2canvas.js'
 import '../styles/GeneratePpt.css'
 
 let pptxObj = null as any
-let painter = null as Ppt2Svg
+let painter = null as any
 const canvasList = [] as any
 
 function resetSize() {
@@ -25,7 +25,7 @@ function GeneratePpt({token, params}: { token: string, params: any }) {
     const [pages, setPages] = useState([] as any)
     const [currentIdx, setCurrentIdx] = useState(0)
 
-    const generatePptx = useCallback((outline: string, templateId: string) => {
+    const generatePptx = useCallback((templateId: string, outline: string, dataUrl: string) => {
         const timer = setInterval(() => {
             setDescTime(descTime => descTime + 1)
         }, 1000)
@@ -33,14 +33,13 @@ function GeneratePpt({token, params}: { token: string, params: any }) {
         const url = 'https://docmee.cn/api/ppt/generateContent'
         const source = new SSE(url, {
             method: 'POST',
-            // withCredentials: true,
             headers: {
-                'Content-Type': 'application/json',
+                'token': token,
                 'Cache-Control': 'no-cache',
-                'token': token
+                'Content-Type': 'application/json'
             },
-            payload: JSON.stringify({ asyncGenPptx: true, outlineMarkdown: outline, templateId }),
-        })
+            payload: JSON.stringify({ asyncGenPptx: true, templateId, outlineMarkdown: outline, dataUrl }),
+        }) as any
         source.onmessage = function (data: any) {
             const json = JSON.parse(data.data)
             if (json.pptId) {
@@ -210,7 +209,7 @@ function GeneratePpt({token, params}: { token: string, params: any }) {
         if (_pptxId) {
           loadById(_pptxId)
         } else {
-          generatePptx(params.outline, params.templateId)
+          generatePptx(params.templateId, params.outline, params.dataUrl)
         }
     }, [token])
 

@@ -15,6 +15,7 @@ const uid = 'test'
 function AiPpt() {
   const [step, setStep] = useState(1)
   const [outline, setOutline] = useState('')
+  const [dataUrl, setDataUrl] = useState()
   const [templateId, setTemplateId] = useState('')
   const [token, setToken] = useState('')
 
@@ -50,9 +51,10 @@ function AiPpt() {
     <>
       <div>
         {step == 1 && (
-            <GenerateOutline token={token} nextStep={(outline)=> {
+            <GenerateOutline token={token} nextStep={(params)=> {
                 setStep(step => step + 1)
-                setOutline(() => outline)
+                setOutline(() => params.outline)
+                setDataUrl(() => params.dataUrl)
             }} />
         )}
         {step == 2 && (
@@ -62,7 +64,7 @@ function AiPpt() {
             }} />
         )}
         {step == 3 && (
-            <GeneratePpt token={token} params={{ outline, templateId }} />
+            <GeneratePpt token={token} params={{templateId, outline, dataUrl}} />
         )}
       </div>
     </>

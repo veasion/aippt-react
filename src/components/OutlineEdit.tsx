@@ -30,10 +30,8 @@ function OutlineEdit({outlineTree, update}: { outlineTree: any, update: (outline
         let outlineMd = ''
         outlineMd += '# ' + outlineTree.name + '\n'
         outlineMd += appendMd(outlineTree.children)
-        console.log(outlineMd)
         update(outlineMd)
         setVersion(++version)
-        console.log(version)
     }, [])
 
     const operate = useCallback((children: any, idx: number, type: number) => {
